@@ -33,7 +33,7 @@
             templateUrl: '/templates/directives/seek_bar.html',
             replace: true,
             restrict: 'E',
-            scope: { },
+            scope: {},
             link: function(scope, element, attributes) {
 
                 /**
@@ -52,7 +52,7 @@
                 * @desc Holds the element <seek-bar> as a jQuery object so we can call jQuery methods on it.
                 * @type {object}
                 */
-                var seekBar = $(element)
+                var seekBar = $(element);
 
                 /**
                 * @function percentString
@@ -87,6 +87,10 @@
                 */
                 scope.fillStyle = function() {
                     return {width: percentString()};
+                };
+
+                scope.thumbStyle = function() {
+                    return {left: percentString()};
                 };
 
                 /**
@@ -134,8 +138,10 @@
                         });
                     });
 
-                    $document.unbind('mousemove.thumb');
-                    $document.unbind('mouseup.thumb');
+                    $document.bind('mouseup.thumb', function() {
+                        $document.unbind('mousemove.thumb');
+                        $document.unbind('mouseup.thumb');
+                    });
                 };
 
         }
