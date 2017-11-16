@@ -134,8 +134,10 @@
                         });
                     });
 
-                    $document.unbind('mousemove.thumb');
-                    $document.unbind('mouseup.thumb');
+                    $document.bind('mouseup.thumb', function() {
+                        $document.unbind('mousemove.thumb');
+                        $document.unbind('mouseup.thumb');
+                    });
                 };
 
         }
