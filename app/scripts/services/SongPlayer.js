@@ -52,6 +52,11 @@
       return currentAlbum.songs.indexOf(song);
     };
 
+    /**
+    * @function stopSong
+    * @desc Stops the audio file in the currentBuzzObject and changes song status to playing
+    * @param {Oblect} song
+    */
     var stopSong = function(song) {
       currentBuzzObject.stop();
       song.playing = null;
