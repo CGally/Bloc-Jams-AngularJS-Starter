@@ -34,6 +34,9 @@
         $rootScope.$apply(function() {
           SongPlayer.currentTime = currentBuzzObject.getTime();
         });
+      if(SongPlayer.currentTime === currentBuzzObject.getDuration()) {
+        SongPlayer.next();
+      }
      });
       SongPlayer.currentSong = song;
     };
@@ -93,6 +96,7 @@
     SongPlayer.setVolume = function(nVolume) {
       if (currentBuzzObject) {
         currentBuzzObject.setVolume(nVolume);
+        SongPlayer.volume = nVolume;
       }
     };
 
@@ -166,6 +170,22 @@
     SongPlayer.setCurrentTime = function(time) {
       if (currentBuzzObject) {
         currentBuzzObject.setTime(time);
+      }
+    };
+
+    /**
+    * @function muteUnMute
+    * @desc Set current time (in seconds) of currently playing song
+    * @param {Number} time
+    */
+    SongPlayer.muteUnMute = function() {
+      var v = SongPlayer.volume;
+      if(currentBuzzObject.volume !== 0) {
+        currentBuzzObject.setVolume(0);
+        SongPlayer.muted = true;
+      } else {
+        currentBuzzObject.setVolume(v);
+        SongPlayer.muted = false;
       }
     };
 
