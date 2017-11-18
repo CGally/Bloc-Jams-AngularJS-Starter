@@ -33,7 +33,9 @@
             templateUrl: '/templates/directives/seek_bar.html',
             replace: true,
             restrict: 'E',
-            scope: {},
+            scope: {
+              onChange: '&'
+            },
             link: function(scope, element, attributes) {
 
                 /**
@@ -53,6 +55,24 @@
                 * @type {object}
                 */
                 var seekBar = $(element);
+
+                /**
+                * @function
+                * @desc sets a new scope value (newValue) for the scope.value
+                * @param {Object}
+                */
+                attributes.$observe('value', function(newValue) {
+                    scope.value = newValue;
+                });
+
+                /**
+                * @function
+                * @desc sets a new scope value (newValue) for the scope.max
+                * @param {Object}
+                */
+                attributes.$observe('max', function(newValue) {
+                    scope.max = newValue;
+                });
 
                 /**
                 * @function percentString
@@ -106,6 +126,7 @@
                     */
                     var percent = calculatePercent(seekBar, event);
                     scope.value = percent * scope.max;
+                    notifyOnChange(scope.value);
                 };
 
                 /**
@@ -135,6 +156,7 @@
                         */
                         scope.$apply(function() {
                             scope.value = percent * scope.max;
+                            notifyOnChange(scope.value);
                         });
                     });
 
@@ -142,8 +164,18 @@
                         $document.unbind('mousemove.thumb');
                         $document.unbind('mouseup.thumb');
                     });
-                };
+              };
 
+              /**
+              * @function notifyOnChange
+              * @desc Sets the value parameter of the setCurrentTime function to the argument passed into notifyOnChange function
+              * @param {Object}
+              */
+              var notifyOnChange = function(newValue) {
+                  if(typeof scope.onChange === 'function') {
+                      scope.onChange({value: newValue});
+                  }
+              };
         }
     };
 }
