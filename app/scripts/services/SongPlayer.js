@@ -80,6 +80,23 @@
     SongPlayer.currentTime = null;
 
     /**
+    * @desc Current volume.
+    * @type {Number}
+    */
+    SongPlayer.volume = 50;
+
+    /**
+    * @function setVolume
+    * @desc Sets the volume to allow the volume to change
+    * @param {Object} number
+    */
+    SongPlayer.setVolume = function(nVolume) {
+      if (currentBuzzObject) {
+        currentBuzzObject.setVolume(nVolume);
+      }
+    };
+
+    /**
     * @function play
     * @desc Checks if the current song equals the selected song. Resumes Playing if it does. Plays selected song if it doesnt.
     * @param {Oblect} song

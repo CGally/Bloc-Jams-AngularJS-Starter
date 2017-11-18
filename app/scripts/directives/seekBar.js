@@ -168,7 +168,7 @@
 
               /**
               * @function notifyOnChange
-              * @desc Sets the value parameter of the setCurrentTime function to the argument passed into notifyOnChange function
+              * @desc Sets the value parameter of the function called by onChange to the argument passed into notifyOnChange function
               * @param {Object}
               */
               var notifyOnChange = function(newValue) {
